@@ -1,0 +1,61 @@
+<div [@routerTransition]>
+    <h2 class="text-muted">Dashboard <small>Cic Overview</small></h2>
+    <form novalidate class="form-inline">
+            <mat-form-field>
+                <input matInput placeholder="Cic ID" [formControl]="ID">
+              </mat-form-field>
+            <div class="btn-group">
+                <button mat-button mat-raised-button (click)="getDataById()" class="btn btn-secondary" [disabled]="isLoading">
+                    <i class="fa fa-spinner fa-spin" [hidden]="!isLoading"></i>
+                    <span>Search</span>
+                </button>
+                <button mat-button mat-raised-button (click)="addCic()" class="btn btn-secondary" [disabled]="isLoading">
+                    <i class="fa fa-spinner fa-spin" [hidden]="!isLoading"></i>
+                    <span>Add Cic</span>
+                </button>
+             </div>
+</form>
+    <div class="example-container mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource">
+            <!-- '', '', '', 'Body', 'Source System', 'Date' -->
+          <ng-container matColumnDef="cicId">
+            <mat-header-cell *matHeaderCellDef> Cic ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cicId}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="cicType">
+            <mat-header-cell *matHeaderCellDef> Cic Type </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cicType}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="subject">
+            <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subject}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="body">
+            <mat-header-cell *matHeaderCellDef> Body </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.body}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="sourceSystem">
+            <mat-header-cell *matHeaderCellDef> Source System </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sourceSystem}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="cicTimestamp">
+            <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.cicTimestamp | amLocal | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}} </mat-cell>
+          </ng-container>
+      
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      
+        <mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>
+      </div>
+</div>
